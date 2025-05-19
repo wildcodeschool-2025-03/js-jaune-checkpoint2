@@ -9,9 +9,9 @@ Exemples :
 * "bbcc" et "a" -> 0
 */
 
-function countLetters(givenString: string, letter: string): number {
-  // Ton code ici !
-  return 0;
+function countLetters(string: string, letter: string): number {
+  if (letter.length < 1) return 0;
+  return string.split(letter).length - 1;
 }
 
 export default countLetters;
