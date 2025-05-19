@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import Cupcake from "../components/Cupcake";
+import { Link } from "react-router-dom";
 
 /* ************************************************************************* */
 
 type AccessoryArray = { id: number; name: string; slug: string }[];
+type CupcakeArray = {
+	id: number;
+	accessory_id: string;
+	accessory: string;
+	color1: string;
+	color2: string;
+	color3: string;
+	name: string;
+}[];
 
 /* you can use sampleCupcakes if you're stucked on step 1 */
 /* if you're fine with step 1, just ignore this ;) */
@@ -68,7 +78,10 @@ function CupcakeList() {
 					cupcake.accessory_id === selectedAccessory ||
 					selectedAccessory === "" ? (
 						<li key={cupcake.id} className="cupcake-item">
-							<Cupcake data={cupcake} />
+							<Link to={`/cupcakes/${cupcake.id}`}>
+								{" "}
+								<Cupcake data={cupcake} />{" "}
+							</Link>
 						</li>
 					) : null,
 				)}
