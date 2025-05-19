@@ -12,16 +12,20 @@ import Home from "./pages/Home";
 import Instructions from "./pages/Instructions";
 import CupcakeDetails from "./pages/CupcakeDetails";
 
-const getCupcake = (id: string) => {
-	fetch("http://localhost:3310/api/cupcakes")
-		.then((response) => response.json())
-		.then((data) => {
-			for (const cupcakeUnit of data) {
-				if (cupcakeUnit.id === Number(id)) {
-					return cupcakeUnit;
-				}
-			}
-		});
+type CupcakeType = {
+	id: number;
+	accessory_id: string;
+	accessory: string;
+	color1: string;
+	color2: string;
+	color3: string;
+	name: string;
+};
+
+const getCupcake = async (id: string): Promise<CupcakeType | undefined> => {
+	const response = await fetch("http://localhost:3310/api/cupcakes");
+	const data: CupcakeType[] = await response.json();
+	return data.find((cupcake) => cupcake.id === Number(id));
 };
 
 const router = createBrowserRouter([

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Cupcake from "../components/Cupcake";
 
 type CupcakeType = {
@@ -13,20 +12,7 @@ type CupcakeType = {
 };
 
 function CupcakeDetails() {
-	const { id } = useParams();
-	const [cupcake, setCupcake] = useState<CupcakeType>();
-
-	useEffect(() => {
-		fetch("http://localhost:3310/api/cupcakes")
-			.then((response) => response.json())
-			.then((data: CupcakeType[]) => {
-				for (const cupcakeUnit of data) {
-					if (cupcakeUnit.id === Number(id)) {
-						setCupcake(cupcakeUnit);
-					}
-				}
-			});
-	}, [id]);
+	const cupcake = useLoaderData() as CupcakeType;
 
 	return <>{cupcake ? <Cupcake data={cupcake} /> : null}</>;
 }
