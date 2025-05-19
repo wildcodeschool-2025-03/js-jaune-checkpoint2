@@ -7,11 +7,20 @@ Exemples :
 * "aaaaabbbaa" et "a" -> 7
 * "bbacbaaa" et "c" -> 1
 * "bbcc" et "a" -> 0
+* 
 */
 
+
+
 function countLetters(givenString: string, letter: string): number {
-  // Ton code ici !
-  return 0;
+  let nLetters = 0;
+  
+  for(let i = 0; i < givenString.length; i++){
+    if (givenString[i] === letter) {
+      nLetters++;
+    }
+  }
+  return nLetters;
 }
 
 export default countLetters;

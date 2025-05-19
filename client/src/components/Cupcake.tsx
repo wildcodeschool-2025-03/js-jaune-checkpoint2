@@ -1,7 +1,10 @@
+
+import type { Cupcake as CupcakeType } from "../types";
+
 import "./Cupcake.css";
 
 interface CupcakeProps {
-  data: Cupcake;
+  data: CupcakeType;
 }
 
 function Cupcake({ data }: CupcakeProps) {

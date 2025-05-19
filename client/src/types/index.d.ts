@@ -1,4 +1,14 @@
-type Cupcake = {
+export interface Accessory {
+  id: number;
+  name: string;
+  slug: string;
+  accessory?: string;
+}
+
+export type AccessoryArray = Accessory[];
+
+
+export interface Cupcake {
   id: number;
   accessory_id: string;
   accessory: string;
@@ -6,6 +16,6 @@ type Cupcake = {
   color2: string;
   color3: string;
   name: string;
-};
+}
 
-type CupcakeArray = Cupcake[];
+export type CupcakeArray = Cupcake[];
