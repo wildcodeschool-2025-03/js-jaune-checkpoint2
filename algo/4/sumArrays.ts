@@ -10,8 +10,27 @@ sumArr( ["2", "5", "3"], ["2", "4", "9", "5", "5"] ) should return ["4", "9", "1
 */
 
 function sumArr(arrayA: string[], arrayB: string[]): string[] {
-  // Ton code ici !
-  return [];
+	// Ton code ici !
+	const resultArray = [];
+
+	const numberOfTurns = Math.max(arrayA.length, arrayB.length);
+
+	for (let i = 0; i < numberOfTurns; i++) {
+		let elementA = 0;
+		let elementB = 0;
+
+		if (arrayA[i] !== null && arrayA[i] !== undefined && arrayA[i] !== "") {
+			elementA = Number.parseInt(arrayA[i]);
+		}
+
+		if (arrayB[i] !== null && arrayB[i] !== undefined && arrayB[i] !== "") {
+			elementB = Number.parseInt(arrayB[i]);
+		}
+
+		resultArray.push(String(elementA + elementB));
+	}
+
+	return resultArray;
 }
 
 export default sumArr;
