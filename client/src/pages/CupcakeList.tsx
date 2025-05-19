@@ -11,6 +11,11 @@ interface CupcakeType {
   name: string;
 }
 
+interface Accessory {
+  id: string;
+  name: string;
+}
+
 /* ************************************************************************* */
 const sampleCupcakes: CupcakeType[] = [
   {
@@ -63,6 +68,20 @@ function CupcakeList() {
       });
   }, []);
   // Step 3: get all accessories
+  const [accessories, setAccesories] = useState<Accessory[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3310/api/accessories")
+      .then((response) => response.json())
+      .then((data) => {
+        setAccesories(data);
+        console.info("Accessoirex récupérés :", data);
+      })
+      .catch((err) => {
+        console.error("Erreur API cupcakes :", err);
+      });
+  }, []);
+  useEffect;
 
   // Step 5: create filter state
 
@@ -75,7 +94,11 @@ function CupcakeList() {
           Filter by{" "}
           <select id="cupcake-select">
             <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
+            {accessories.map((accessory) => (
+              <option key={accessory.id} value={accessory.name}>
+                {accessory.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
