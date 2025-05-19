@@ -28,6 +28,10 @@ const router = createBrowserRouter([
         path: "/cupcakes",
         element: <CupcakeList />,
       },
+      // {
+      //   path: "/cupcakes/:id",
+      //   element: <CupcakeDetails />,
+      // },
     ],
   },
 ]);
