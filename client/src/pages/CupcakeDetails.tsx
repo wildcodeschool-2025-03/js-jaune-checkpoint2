@@ -16,8 +16,6 @@ function CupcakeDetails() {
 	const { id } = useParams();
 	const [cupcake, setCupcake] = useState<CupcakeType>();
 
-	// Step 1: get all cupcakes
-
 	useEffect(() => {
 		fetch("http://localhost:3310/api/cupcakes")
 			.then((response) => response.json())
