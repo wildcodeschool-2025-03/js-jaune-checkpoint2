@@ -12,7 +12,7 @@ interface CupcakeType {
 }
 
 interface Accessory {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -68,13 +68,13 @@ function CupcakeList() {
       });
   }, []);
   // Step 3: get all accessories
-  const [accessories, setAccesories] = useState<Accessory[]>([]);
+  const [accessories, setAccessories] = useState<Accessory[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:3310/api/accessories")
       .then((response) => response.json())
       .then((data) => {
-        setAccesories(data);
+        setAccessories(data);
         console.info("Accessoirex récupérés :", data);
       })
       .catch((err) => {
@@ -84,18 +84,27 @@ function CupcakeList() {
   useEffect;
 
   // Step 5: create filter state
+  const [filterAccessory, setFilterAccessory] = useState<string>("");
+  const HandleSelectionChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    setFilterAccessory(event.target.value);
+  };
 
   return (
     <>
       <h1>My cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
-          {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
+          <select
+            id="cupcake-select"
+            value={filterAccessory}
+            onChange={HandleSelectionChange}
+          >
             <option value="">---</option>
             {accessories.map((accessory) => (
-              <option key={accessory.id} value={accessory.name}>
+              <option key={accessory.id} value={accessory.id}>
                 {accessory.name}
               </option>
             ))}
