@@ -11,8 +11,22 @@ Pour exemple, si ta fonction recevait le tableau ci-dessous en paramètre, tu de
 */
 
 function getPoints(results: string[]): number {
-  // Ton code ici !
-  return 0;
+  let finalPoints = 0;
+  for (let i = 0; i < results.length; i++) {
+    const score = results[i].split(":");
+    const monScore = score[0];
+    const monScoreNum = Number.parseInt(monScore);
+    const adversaireScore = score[1];
+    const adversaireScoreNum = Number.parseInt(adversaireScore);
+
+    if (monScoreNum > adversaireScoreNum) {
+      finalPoints += 3;
+    } else if (monScoreNum === adversaireScoreNum) {
+      finalPoints += 1;
+    }
+  }
+
+  return finalPoints;
 }
 
 export default getPoints;
