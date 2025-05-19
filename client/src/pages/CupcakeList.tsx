@@ -1,6 +1,27 @@
+import { useEffect, useState } from "react";
 import Cupcake from "../components/Cupcake";
 
-/* ************************************************************************* */
+// Types
+type CupcakeType = {
+  id: number;
+  accessory_id: string;
+  accessory: string;
+  color1: string;
+  color2: string;
+  color3: string;
+  name: string;
+};
+
+type CupcakeArray = CupcakeType[];
+
+type Accessory = {
+  id: string;
+  name: string;
+};
+
+type AccessoryArray = Accessory[];
+
+// Sample data (à remplacer par fetch plus tard)
 const sampleCupcakes: CupcakeArray = [
   {
     id: 10,
@@ -31,37 +52,69 @@ const sampleCupcakes: CupcakeArray = [
   },
 ];
 
-/* you can use sampleCupcakes if you're stucked on step 1 */
-/* if you're fine with step 1, just ignore this ;) */
-/* ************************************************************************* */
-
 function CupcakeList() {
-  // Step 1: get all cupcakes
+  const [cupcakes] = useState<CupcakeArray>(sampleCupcakes);
+  const [accessoriesList, setAccessoriesList] = useState<AccessoryArray>([]);
+  const [selectedAccessoryId, setSelectedAccessoryId] = useState("");
 
-  // Step 3: get all accessories
+  useEffect(() => {
+    // Récupérer les accessoires uniques à partir des cupcakes
+    const uniqueAccessories: Accessory[] = [];
 
-  // Step 5: create filter state
+    for (const cupcake of sampleCupcakes) {
+      const alreadyExists = uniqueAccessories.find(
+        (acc) => acc.id === cupcake.accessory_id,
+      );
+      if (!alreadyExists) {
+        uniqueAccessories.push({
+          id: cupcake.accessory_id,
+          name: cupcake.accessory,
+        });
+      }
+    }
+
+    setAccessoriesList(uniqueAccessories);
+  }, []);
+
+  // Filtrer les cupcakes selon l’accessoire sélectionné
+  const filteredCupcakes =
+    selectedAccessoryId === ""
+      ? cupcakes
+      : cupcakes.filter(
+          (cupcake) => cupcake.accessory_id === selectedAccessoryId,
+        );
+
+  // Gestion du changement dans le select
+  function handleSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedAccessoryId(e.target.value);
+  }
 
   return (
     <>
       <h1>My cupcakes</h1>
       <form className="center">
         <label htmlFor="cupcake-select">
-          {/* Step 5: use a controlled component for select */}
           Filter by{" "}
-          <select id="cupcake-select">
+          <select
+            id="cupcake-select"
+            value={selectedAccessoryId}
+            onChange={handleSelectChange}
+          >
             <option value="">---</option>
-            {/* Step 4: add an option for each accessory */}
+            {accessoriesList.map((accessory: Accessory) => (
+              <option key={accessory.id} value={accessory.id}>
+                {accessory.name}
+              </option>
+            ))}
           </select>
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
-        {/* Step 2: repeat this block for each cupcake */}
-        {/* Step 5: filter cupcakes before repeating */}
-        <li className="cupcake-item">
-          <Cupcake data={sampleCupcakes[0]} />
-        </li>
-        {/* end of block */}
+        {filteredCupcakes.map((cupcake) => (
+          <li className="cupcake-item" key={cupcake.id}>
+            <Cupcake data={cupcake} />
+          </li>
+        ))}
       </ul>
     </>
   );
