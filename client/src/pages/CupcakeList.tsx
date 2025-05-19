@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Cupcake from "../components/Cupcake";
 import { Link } from "react-router-dom";
+import Cupcake from "../components/Cupcake";
 
 /* ************************************************************************* */
 // const sampleCupcakes: CupcakeArray = [
